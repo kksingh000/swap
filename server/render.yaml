@@ -1,0 +1,17 @@
+# Render blueprint — deploy the Swap API as a web service.
+# Set MONGODB_URI (MongoDB Atlas M0 free tier works) and JWT_SECRET in the
+# Render dashboard before the first deploy.
+services:
+  - type: web
+    name: swap-api
+    runtime: node
+    rootDir: server
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: MONGODB_URI
+        sync: false
+      - key: JWT_SECRET
+        generateValue: true
+      - key: CORS_ORIGINS
+        value: https://swap-atelier.vercel.app,http://localhost:5173
