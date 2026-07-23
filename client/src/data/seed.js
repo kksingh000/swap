@@ -1462,9 +1462,35 @@ const DEPARTMENT = {
   'l-88': 'Kids', 'l-89': 'Kids', 'l-90': 'Kids', 'l-91': 'Kids', 'l-92': 'Kids', 'l-93': 'Kids',
 }
 
+// Category photo pools drawn from the originally-shot listings. Pieces added
+// without their own photo borrow a real, category-matched image (a knit shows
+// a knit, a shoe a shoe) instead of the glyph placeholder. An exact per-item
+// photo always wins when present in IMAGES.
+const CATEGORY_PHOTOS = {
+  Denim: ['l-01', 'l-12', 'l-18', 'l-25', 'cat-Denim'],
+  Outerwear: ['l-02', 'l-09', 'l-13', 'l-24', 'cat-Outerwear'],
+  Footwear: ['l-03', 'l-08', 'l-20', 'cat-Footwear'],
+  Ethnic: ['l-04', 'l-07', 'l-14', 'l-23', 'l-26', 'cat-Ethnic'],
+  Knitwear: ['l-05', 'l-11', 'l-21', 'cat-Knitwear'],
+  Dresses: ['l-10', 'l-19', 'l-22', 'cat-Dresses'],
+  Shirts: ['l-06', 'l-17'],
+  Tees: ['l-15', 'l-06', 'l-17'],
+  Accessories: ['l-16'],
+}
+
+// Rotate each category's pool independently so the same photo doesn't cluster.
+const catPhotoCounter = {}
+function fallbackPhoto(category) {
+  const pool = CATEGORY_PHOTOS[category]
+  if (!pool || pool.length === 0) return null
+  const n = catPhotoCounter[category] ?? 0
+  catPhotoCounter[category] = n + 1
+  return IMAGES[pool[n % pool.length]] ?? null
+}
+
 export const listings = rawListings.map((l) => ({
   ...l,
-  image: IMAGES[l.id] ?? null,
+  image: IMAGES[l.id] ?? fallbackPhoto(l.category),
   department: DEPARTMENT[l.id] ?? 'Women',
   swapValue: estimateValue(l),
   status: 'available',
