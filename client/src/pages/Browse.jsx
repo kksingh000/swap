@@ -17,8 +17,8 @@ import { listings } from '../data/seed'
 const PAGE_SIZE = 8
 
 const SIZE_ORDER = [
-  'S', 'M', 'L', 'XL', '30', '32', '34', 'UK 6', 'UK 8', 'UK 9', 'UK 10', 'One size',
-  '3-4Y', '4-5Y', '5-6Y', '6-7Y', 'UK 11K',
+  'S', 'M', 'L', 'XL', '28', '30', '32', '34', 'UK 5', 'UK 6', 'UK 8', 'UK 9', 'UK 10', 'One size',
+  '1-2Y', '2-3Y', '3-4Y', '4-5Y', '5-6Y', '6-7Y', 'UK 10K', 'UK 11K',
 ]
 const DEPARTMENT_ORDER = ['Women', 'Men', 'Kids']
 const CONDITION_ORDER = ['New with tags', 'Like new', 'Gently used', 'Well loved']
