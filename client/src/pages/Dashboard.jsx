@@ -4,6 +4,7 @@ import { motion } from 'framer-motion'
 import {
   ArrowLeftRight,
   Check,
+  Heart,
   LogOut,
   MessageSquare,
   Plus,
@@ -25,16 +26,20 @@ import { Field, Input, Select, Textarea } from '../components/ui/fields'
 import { toast } from '../components/ui/Toast'
 import ListingCard from '../components/listing/ListingCard'
 import StatusChip from '../components/swap/StatusChip'
+import StarRating from '../components/reviews/StarRating'
 import { useAuthStore } from '../store/authStore'
 import { useSwapStore } from '../store/swapStore'
 import { useListingStore } from '../store/listingStore'
+import { useWishlistStore } from '../store/wishlistStore'
+import { useNotificationStore } from '../store/notificationStore'
+import { useReviewStore } from '../store/reviewStore'
 import { resolveRequest, DEMO_PERSONA_ID } from '../lib/requests'
 import { CATEGORIES, CONDITIONS } from '../lib/swapValue'
-import { listings } from '../data/seed'
+import { listings, DEPARTMENTS } from '../data/seed'
 import { fadeUp, stagger } from '../lib/motion'
 import { cn } from '../lib/utils'
 
-const TABS = ['My listings', 'Incoming', 'Outgoing', 'History']
+const TABS = ['My listings', 'Saved', 'Incoming', 'Outgoing', 'History']
 
 function RequestRow({ convo, onAccept, onDecline }) {
   const actionable = convo.incoming && (convo.status === 'Requested' || convo.status === 'Negotiating')
@@ -97,7 +102,7 @@ function RequestRow({ convo, onAccept, onDecline }) {
   )
 }
 
-const EMPTY_DRAFT = { title: '', brand: '', category: 'Denim', size: '', condition: 'Gently used', description: '' }
+const EMPTY_DRAFT = { title: '', brand: '', category: 'Denim', department: 'Women', size: '', condition: 'Gently used', description: '' }
 
 export default function Dashboard() {
   const navigate = useNavigate()
@@ -105,12 +110,19 @@ export default function Dashboard() {
   const requests = useSwapStore((s) => s.requests)
   const updateStatus = useSwapStore((s) => s.updateRequestStatus)
   const { userListings, addListing } = useListingStore()
+  const savedIds = useWishlistStore((s) => s.savedIds)
+  const notify = useNotificationStore((s) => s.push)
+  const reviewsByUser = useReviewStore((s) => s.reviews)
+  const addReview = useReviewStore((s) => s.addReview)
 
   const [tab, setTab] = useState(TABS[0])
   const [listingOpen, setListingOpen] = useState(false)
   const [draft, setDraft] = useState(EMPTY_DRAFT)
   const [images, setImages] = useState([])
   const [submitted, setSubmitted] = useState(false)
+  const [reviewFor, setReviewFor] = useState(null) // resolved convo being reviewed
+  const [reviewRating, setReviewRating] = useState(0)
+  const [reviewText, setReviewText] = useState('')
 
   useEffect(() => {
     if (!user) navigate('/auth', { replace: true })
@@ -126,8 +138,43 @@ export default function Dashboard() {
   const completedCount = history.filter((r) => r.status === 'Completed').length
 
   const myListings = [...userListings, ...listings.filter((l) => l.ownerId === DEMO_PERSONA_ID)]
+  const savedListings = useMemo(() => {
+    const pool = [...userListings, ...listings]
+    return savedIds.map((id) => pool.find((l) => l.id === id)).filter(Boolean)
+  }, [savedIds, userListings])
+
+  // A completed swap can be reviewed once — dedupe on requestId.
+  const reviewedRequestIds = useMemo(
+    () => new Set(Object.values(reviewsByUser).flat().map((r) => r.requestId).filter(Boolean)),
+    [reviewsByUser],
+  )
+  const reviewable = history.filter((c) => c.status === 'Completed')
 
   if (!user) return null
+
+  const closeReview = () => {
+    setReviewFor(null)
+    setReviewRating(0)
+    setReviewText('')
+  }
+
+  const submitReview = () => {
+    if (!reviewFor || reviewRating === 0) return
+    addReview(reviewFor.counterpart.id, {
+      rating: reviewRating,
+      text: reviewText || 'Smooth, honest swap.',
+      requestId: reviewFor.id,
+      byId: user.id ?? DEMO_PERSONA_ID,
+      byName: user.name,
+    })
+    notify({
+      type: 'review',
+      text: `You left ${reviewFor.counterpart.name.split(' ')[0]} a ${reviewRating}★ review.`,
+      to: '/dashboard',
+    })
+    toast(`Thanks — your review of ${reviewFor.counterpart.name.split(' ')[0]} is live.`, { type: 'success' })
+    closeReview()
+  }
 
   const draftErrors = {
     title: !draft.title.trim() && 'Give it a title',
@@ -213,8 +260,14 @@ export default function Dashboard() {
             {/* Tabs */}
             <motion.div variants={fadeUp} className="mt-14 flex gap-8 overflow-x-auto border-b border-gray-line/60">
               {TABS.map((t) => {
-                const count =
-                  t === 'Incoming' ? incoming.length : t === 'Outgoing' ? outgoing.length : t === 'History' ? history.length : myListings.length
+                const counts = {
+                  'My listings': myListings.length,
+                  Saved: savedListings.length,
+                  Incoming: incoming.length,
+                  Outgoing: outgoing.length,
+                  History: history.length,
+                }
+                const count = counts[t]
                 return (
                   <button
                     key={t}
@@ -253,6 +306,23 @@ export default function Dashboard() {
                   </div>
                 ))}
 
+              {tab === 'Saved' &&
+                (savedListings.length === 0 ? (
+                  <EmptyState
+                    eyebrow="Nothing saved"
+                    title="Your wishlist is empty"
+                    copy="Tap the heart on any piece to keep it here — a private rail of the trades you're weighing."
+                    actionLabel="Browse the rack"
+                    onAction={() => navigate('/browse')}
+                  />
+                ) : (
+                  <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+                    {savedListings.map((l) => (
+                      <ListingCard key={l.id} listing={l} />
+                    ))}
+                  </div>
+                ))}
+
               {tab === 'Incoming' &&
                 (incoming.length === 0 ? (
                   <EmptyState
@@ -268,10 +338,20 @@ export default function Dashboard() {
                         convo={c}
                         onAccept={() => {
                           updateStatus(c.id, 'Accepted')
+                          notify({
+                            type: 'status',
+                            text: `You accepted ${c.counterpart.name.split(' ')[0]}'s offer — ${c.mine.itemId} ⇄ ${c.theirs.itemId}.`,
+                            to: `/swap/${c.id}`,
+                          })
                           toast(`Accepted — arrange the exchange with ${c.counterpart.name.split(' ')[0]}.`, { type: 'success' })
                         }}
                         onDecline={() => {
                           updateStatus(c.id, 'Declined')
+                          notify({
+                            type: 'status',
+                            text: `You declined ${c.counterpart.name.split(' ')[0]}'s offer for your ${c.mine.title}.`,
+                            to: `/swap/${c.id}`,
+                          })
                           toast('Request declined.', { type: 'error' })
                         }}
                       />
@@ -300,14 +380,47 @@ export default function Dashboard() {
                 (history.length === 0 ? (
                   <EmptyState eyebrow="Fresh start" title="No swap history yet" copy="Completed and declined swaps are archived here." />
                 ) : (
-                  <div className="max-w-xl">
-                    <Timeline
-                      items={history.map((c) => ({
-                        date: new Date(c.createdAt).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' }),
-                        title: `${c.mine.itemId} ⇄ ${c.theirs.itemId} — ${c.status}`,
-                        description: `${c.mine.title} for ${c.counterpart.name.split(' ')[0]}'s ${c.theirs.title}.`,
-                      }))}
-                    />
+                  <div className="grid gap-12 lg:grid-cols-[1fr_1.1fr]">
+                    {reviewable.length > 0 && (
+                      <div>
+                        <Eyebrow className="mb-4">Rate your swaps</Eyebrow>
+                        <div className="space-y-4">
+                          {reviewable.map((c) => {
+                            const done = reviewedRequestIds.has(c.id)
+                            return (
+                              <MaterialCard key={c.id} className="flex items-center gap-4 p-4">
+                                <Avatar name={c.counterpart.name} size="md" />
+                                <div className="min-w-0 flex-1">
+                                  <p className="truncate text-sm text-ivory">{c.counterpart.name}</p>
+                                  <p className="mt-0.5 font-mono text-[10px] uppercase tracking-[0.12em] text-gray-mid">
+                                    {c.mine.itemId} ⇄ {c.theirs.itemId}
+                                  </p>
+                                </div>
+                                {done ? (
+                                  <span className="inline-flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-eyebrow text-red-light">
+                                    <Star className="h-3.5 w-3.5 fill-current" /> Reviewed
+                                  </span>
+                                ) : (
+                                  <Button size="sm" variant="outline" icon={Star} onClick={() => setReviewFor(c)}>
+                                    Rate
+                                  </Button>
+                                )}
+                              </MaterialCard>
+                            )
+                          })}
+                        </div>
+                      </div>
+                    )}
+                    <div className={cn('max-w-xl', reviewable.length === 0 && 'lg:col-span-2')}>
+                      <Eyebrow className="mb-4">Timeline</Eyebrow>
+                      <Timeline
+                        items={history.map((c) => ({
+                          date: new Date(c.createdAt).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' }),
+                          title: `${c.mine.itemId} ⇄ ${c.theirs.itemId} — ${c.status}`,
+                          description: `${c.mine.title} for ${c.counterpart.name.split(' ')[0]}'s ${c.theirs.title}.`,
+                        }))}
+                      />
+                    </div>
                   </div>
                 ))}
             </motion.div>
@@ -354,6 +467,13 @@ export default function Dashboard() {
                 onChange={(e) => setDraft((d) => ({ ...d, brand: e.target.value }))}
               />
             </Field>
+            <Field label="Department" htmlFor="nl-department">
+              <Select id="nl-department" value={draft.department} onChange={(e) => setDraft((d) => ({ ...d, department: e.target.value }))}>
+                {DEPARTMENTS.map((d) => (
+                  <option key={d}>{d}</option>
+                ))}
+              </Select>
+            </Field>
             <Field label="Category" htmlFor="nl-category">
               <Select id="nl-category" value={draft.category} onChange={(e) => setDraft((d) => ({ ...d, category: e.target.value }))}>
                 {CATEGORIES.map((c) => (
@@ -388,6 +508,49 @@ export default function Dashboard() {
             />
           </Field>
         </form>
+      </Modal>
+
+      {/* Leave-a-review modal */}
+      <Modal
+        open={!!reviewFor}
+        onClose={closeReview}
+        eyebrow="Rate your swap"
+        title={reviewFor ? `How was swapping with ${reviewFor.counterpart.name.split(' ')[0]}?` : ''}
+        footer={
+          <>
+            <Button variant="ghost" onClick={closeReview}>
+              Cancel
+            </Button>
+            <Button icon={Star} onClick={submitReview} disabled={reviewRating === 0}>
+              Post review
+            </Button>
+          </>
+        }
+      >
+        {reviewFor && (
+          <div className="space-y-5">
+            <div className="flex items-center gap-3">
+              <Avatar name={reviewFor.counterpart.name} size="lg" />
+              <div>
+                <p className="text-ivory">{reviewFor.counterpart.name}</p>
+                <p className="mt-0.5 font-mono text-[10px] uppercase tracking-[0.12em] text-gray-mid">
+                  {reviewFor.mine.itemId} ⇄ {reviewFor.theirs.itemId}
+                </p>
+              </div>
+            </div>
+            <div>
+              <p className="text-eyebrow mb-2 font-medium text-gray-mid">Your rating</p>
+              <StarRating value={reviewRating} onChange={setReviewRating} size="lg" />
+            </div>
+            <Field label="A few words (optional)">
+              <Textarea
+                placeholder="Punctual, honest about condition, easy to meet…"
+                value={reviewText}
+                onChange={(e) => setReviewText(e.target.value)}
+              />
+            </Field>
+          </div>
+        )}
       </Modal>
     </PageTransition>
   )

@@ -17,7 +17,10 @@ import SwapValuePill from '../components/listing/SwapValuePill'
 import ListingCard from '../components/listing/ListingCard'
 import BalanceScale from '../components/swap/BalanceScale'
 import SwapValueCalculator from '../components/swap/SwapValueCalculator'
+import StarRating from '../components/reviews/StarRating'
 import { useSwapStore } from '../store/swapStore'
+import { useNotificationStore } from '../store/notificationStore'
+import { useReviewStore, averageRating } from '../store/reviewStore'
 import { listings, users } from '../data/seed'
 import { fadeUp, stagger } from '../lib/motion'
 import { cn, formatRupees } from '../lib/utils'
@@ -34,9 +37,13 @@ export default function ItemDetail() {
   const { id } = useParams()
   const navigate = useNavigate()
   const createRequest = useSwapStore((s) => s.createRequest)
+  const notify = useNotificationStore((s) => s.push)
+  const reviewsByUser = useReviewStore((s) => s.reviews)
 
   const listing = listings.find((l) => l.id === id)
   const owner = users.find((u) => u.id === listing?.ownerId)
+  const ownerReviews = (owner && reviewsByUser[owner.id]) || []
+  const ownerAvg = averageRating(ownerReviews)
 
   // Demo closet: pieces "you" could offer. Ananya is the demo persona unless
   // she owns this listing, in which case Priya's closet stands in.
@@ -55,6 +62,7 @@ export default function ItemDetail() {
   const [crop, setCrop] = useState(0)
   const [lightbox, setLightbox] = useState(false)
   const [confirmOpen, setConfirmOpen] = useState(false)
+  const [reviewsOpen, setReviewsOpen] = useState(false)
 
   if (!listing) {
     return (
@@ -77,6 +85,11 @@ export default function ItemDetail() {
   const sendRequest = () => {
     const requestId = createRequest({ offeredId: offer.id, requestedId: listing.id })
     setConfirmOpen(false)
+    notify({
+      type: 'request',
+      text: `You proposed a swap to ${owner.name.split(' ')[0]}: ${offer.itemId} ⇄ ${listing.itemId}.`,
+      to: `/swap/${requestId}`,
+    })
     toast(`Swap request sent to ${owner.name.split(' ')[0]} — ${listing.itemId} ⇄ ${offer.itemId}.`, {
       type: 'success',
     })
@@ -160,6 +173,12 @@ export default function ItemDetail() {
 
                 <div className="mt-5 flex flex-wrap items-center gap-2">
                   <Badge condition={listing.condition} />
+                  <Link
+                    to={`/browse?department=${encodeURIComponent(listing.department)}`}
+                    className="rounded-full border border-red/40 bg-red/10 px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.12em] text-red-light transition-colors duration-200 hover:border-red hover:text-ivory"
+                  >
+                    {listing.department}
+                  </Link>
                   <span className="rounded-full border border-gray-line px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.12em] text-gray-light">
                     {listing.category}
                   </span>
@@ -185,23 +204,41 @@ export default function ItemDetail() {
                 </div>
 
                 {/* Owner mini-profile */}
-                <MaterialCard className="mt-6 flex items-center gap-4 p-5">
-                  <Avatar name={owner.name} size="lg" online />
-                  <div className="min-w-0 flex-1">
-                    <p className="truncate text-ivory">{owner.name}</p>
-                    <p className="mt-0.5 font-mono text-[10px] uppercase tracking-[0.12em] text-gray-mid">
-                      {owner.city} · member since{' '}
-                      {new Date(owner.joinedAt).toLocaleDateString('en-IN', { month: 'short', year: 'numeric' })}
-                    </p>
+                <MaterialCard className="mt-6 p-5">
+                  <div className="flex items-center gap-4">
+                    <Avatar name={owner.name} size="lg" online />
+                    <div className="min-w-0 flex-1">
+                      <p className="truncate text-ivory">{owner.name}</p>
+                      <p className="mt-0.5 font-mono text-[10px] uppercase tracking-[0.12em] text-gray-mid">
+                        {owner.city} · member since{' '}
+                        {new Date(owner.joinedAt).toLocaleDateString('en-IN', { month: 'short', year: 'numeric' })}
+                      </p>
+                    </div>
+                    <div className="text-right">
+                      <p className="inline-flex items-center gap-1 font-mono text-sm text-red-light">
+                        <Star className="h-3.5 w-3.5 fill-current" /> {owner.rating.toFixed(1)}
+                      </p>
+                      <p className="mt-0.5 font-mono text-[10px] uppercase tracking-[0.12em] text-gray-mid">
+                        {owner.swapsCompleted} swaps
+                      </p>
+                    </div>
                   </div>
-                  <div className="text-right">
-                    <p className="inline-flex items-center gap-1 font-mono text-sm text-red-light">
-                      <Star className="h-3.5 w-3.5 fill-current" /> {owner.rating.toFixed(1)}
-                    </p>
-                    <p className="mt-0.5 font-mono text-[10px] uppercase tracking-[0.12em] text-gray-mid">
-                      {owner.swapsCompleted} swaps
-                    </p>
-                  </div>
+                  {ownerReviews.length > 0 && (
+                    <button
+                      onClick={() => setReviewsOpen(true)}
+                      className="mt-4 flex w-full items-center justify-between gap-3 border-t border-gray-line/50 pt-4 text-left transition-opacity duration-200 hover:opacity-80"
+                    >
+                      <span className="flex items-center gap-2">
+                        <StarRating value={Math.round(ownerAvg)} size="sm" />
+                        <span className="font-mono text-[11px] text-gray-light">
+                          {ownerAvg.toFixed(1)}
+                        </span>
+                      </span>
+                      <span className="font-mono text-[10px] uppercase tracking-eyebrow text-red-light">
+                        Read {ownerReviews.length} review{ownerReviews.length > 1 ? 's' : ''} →
+                      </span>
+                    </button>
+                  )}
                 </MaterialCard>
 
                 <div className="mt-8 flex flex-wrap gap-4">
@@ -292,6 +329,44 @@ export default function ItemDetail() {
           </Section>
         )}
       </div>
+
+      {/* Owner reviews */}
+      <Modal
+        open={reviewsOpen}
+        onClose={() => setReviewsOpen(false)}
+        eyebrow={`${ownerReviews.length} review${ownerReviews.length === 1 ? '' : 's'}`}
+        title={`What swappers say about ${owner.name.split(' ')[0]}`}
+        size="lg"
+      >
+        {ownerAvg != null && (
+          <div className="mb-6 flex items-center gap-3 border-b border-gray-line/50 pb-5">
+            <span className="font-display text-4xl text-ivory">{ownerAvg.toFixed(1)}</span>
+            <div>
+              <StarRating value={Math.round(ownerAvg)} />
+              <p className="mt-1 font-mono text-[10px] uppercase tracking-eyebrow text-gray-mid">
+                {owner.swapsCompleted} completed swaps
+              </p>
+            </div>
+          </div>
+        )}
+        <div className="space-y-5">
+          {ownerReviews.map((r) => (
+            <div key={r.id} className="flex gap-3">
+              <Avatar name={r.byName} size="md" />
+              <div className="min-w-0 flex-1">
+                <div className="flex flex-wrap items-center justify-between gap-2">
+                  <p className="text-sm text-ivory">{r.byName}</p>
+                  <StarRating value={r.rating} size="sm" />
+                </div>
+                <p className="mt-1.5 text-sm leading-relaxed text-gray-light">{r.text}</p>
+                <p className="mt-1.5 font-mono text-[10px] uppercase tracking-[0.12em] text-gray-mid">
+                  {new Date(r.date).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </Modal>
 
       {/* Lightbox */}
       <Modal open={lightbox} onClose={() => setLightbox(false)} size="lg" title={listing.title}>

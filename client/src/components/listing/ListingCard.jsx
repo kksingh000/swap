@@ -1,13 +1,18 @@
 import Tilt from 'react-parallax-tilt'
 import { Link } from 'react-router-dom'
-import { MapPin } from 'lucide-react'
+import { Heart, MapPin } from 'lucide-react'
 import Badge from '../ui/Badge'
 import ImageFrame from '../ui/ImageFrame'
 import SwapValuePill from './SwapValuePill'
+import { useWishlistStore } from '../../store/wishlistStore'
+import { cn } from '../../lib/utils'
 
 // Signature listing card: 3D mouse-reactive tilt (max 8°, spring return),
 // two-layer material shadow, red edge-glow on hover — never a color fill.
 export default function ListingCard({ listing }) {
+  const saved = useWishlistStore((s) => s.savedIds.includes(listing.id))
+  const toggle = useWishlistStore((s) => s.toggle)
+
   return (
     <Tilt
       tiltMaxAngleX={8}
@@ -35,6 +40,24 @@ export default function ListingCard({ listing }) {
             <div className="absolute left-3 top-3">
               <Badge condition={listing.condition} />
             </div>
+            <button
+              type="button"
+              onClick={(e) => {
+                e.preventDefault()
+                e.stopPropagation()
+                toggle(listing.id)
+              }}
+              aria-pressed={saved}
+              aria-label={saved ? 'Remove from saved' : 'Save this piece'}
+              className={cn(
+                'absolute right-3 top-3 z-10 flex h-9 w-9 items-center justify-center rounded-full border backdrop-blur-sm transition-all duration-200',
+                saved
+                  ? 'border-red/60 bg-red/20 text-red-light shadow-glow'
+                  : 'border-white/15 bg-black/50 text-gray-light hover:border-red/50 hover:text-red-light',
+              )}
+            >
+              <Heart className={cn('h-4 w-4', saved && 'fill-current')} strokeWidth={1.8} />
+            </button>
             <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-black/90 to-transparent" />
             <span className="absolute bottom-3 right-3 font-mono text-[10px] uppercase tracking-eyebrow text-gray-light/80">
               {listing.itemId}

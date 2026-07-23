@@ -30,6 +30,21 @@ export default function FilterPanel({ facets, selected, onToggle, onSet, onClear
         )}
       </div>
 
+      <Group label="Department">
+        <div className="flex flex-wrap gap-2">
+          {facets.departments.map(([name, count]) => (
+            <FilterChip
+              key={name}
+              active={selected.departments.includes(name)}
+              count={count}
+              onClick={() => onToggle('department', name)}
+            >
+              {name}
+            </FilterChip>
+          ))}
+        </div>
+      </Group>
+
       <Group label="Category">
         <div className="flex flex-wrap gap-2">
           {facets.categories.map(([name, count]) => (

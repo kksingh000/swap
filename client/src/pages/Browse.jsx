@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { SlidersHorizontal } from 'lucide-react'
+import { Search, SlidersHorizontal, X } from 'lucide-react'
 import PageTransition from '../components/layout/PageTransition'
 import Eyebrow from '../components/ui/Eyebrow'
 import Button from '../components/ui/Button'
@@ -16,7 +16,11 @@ import { listings } from '../data/seed'
 
 const PAGE_SIZE = 8
 
-const SIZE_ORDER = ['S', 'M', 'L', 'XL', '30', '32', '34', 'UK 8', 'UK 9', 'UK 10', 'One size']
+const SIZE_ORDER = [
+  'S', 'M', 'L', 'XL', '30', '32', '34', 'UK 8', 'UK 9', 'UK 10', 'One size',
+  '3-4Y', '4-5Y', '6-7Y', 'UK 11K',
+]
+const DEPARTMENT_ORDER = ['Women', 'Men', 'Kids']
 const CONDITION_ORDER = ['New with tags', 'Like new', 'Gently used', 'Well loved']
 
 const SORTS = [
@@ -44,23 +48,27 @@ export default function Browse() {
 
   const getList = (key) => params.get(key)?.split(',').filter(Boolean) ?? []
   const selected = {
+    departments: getList('department'),
     categories: getList('category'),
     sizes: getList('size'),
     conditions: getList('condition'),
     brands: getList('brand'),
     city: params.get('city') ?? '',
     radius: params.get('radius') ?? '',
+    q: params.get('q') ?? '',
     sort: params.get('sort') ?? 'new',
     page: Math.max(1, Number(params.get('page') ?? 1) || 1),
   }
 
   const activeCount =
+    selected.departments.length +
     selected.categories.length +
     selected.sizes.length +
     selected.conditions.length +
     selected.brands.length +
     (selected.city ? 1 : 0) +
-    (selected.radius ? 1 : 0)
+    (selected.radius ? 1 : 0) +
+    (selected.q ? 1 : 0)
 
   const update = (patch) => {
     const next = new URLSearchParams(params)
@@ -86,6 +94,9 @@ export default function Browse() {
 
   const facets = useMemo(
     () => ({
+      departments: countBy(listings, 'department').sort(
+        (a, b) => DEPARTMENT_ORDER.indexOf(a[0]) - DEPARTMENT_ORDER.indexOf(b[0]),
+      ),
       categories: countBy(listings, 'category'),
       brands: countBy(listings, 'brand'),
       sizes: [...new Set(listings.map((l) => l.size))].sort(
@@ -99,15 +110,24 @@ export default function Browse() {
     [],
   )
 
+  const query = selected.q.trim().toLowerCase()
+  const matchesQuery = (l) =>
+    !query ||
+    [l.title, l.brand, l.category, l.department, l.city, l.description]
+      .filter(Boolean)
+      .some((field) => field.toLowerCase().includes(query))
+
   const filtered = useMemo(() => {
     let result = listings.filter(
       (l) =>
+        (selected.departments.length === 0 || selected.departments.includes(l.department)) &&
         (selected.categories.length === 0 || selected.categories.includes(l.category)) &&
         (selected.sizes.length === 0 || selected.sizes.includes(l.size)) &&
         (selected.conditions.length === 0 || selected.conditions.includes(l.condition)) &&
         (selected.brands.length === 0 || selected.brands.includes(l.brand)) &&
         (!selected.city || l.city === selected.city) &&
-        (!selected.city || !selected.radius || pseudoDistance(l) <= Number(selected.radius)),
+        (!selected.city || !selected.radius || pseudoDistance(l) <= Number(selected.radius)) &&
+        matchesQuery(l),
     )
     switch (selected.sort) {
       case 'value-desc':
@@ -161,6 +181,28 @@ export default function Browse() {
             </aside>
 
             <div className="min-w-0 flex-1">
+              {/* Search */}
+              <div className="relative mb-5">
+                <Search className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-mid" />
+                <input
+                  type="search"
+                  value={selected.q}
+                  onChange={(e) => update({ q: e.target.value })}
+                  placeholder="Search brand, piece, city…"
+                  aria-label="Search listings"
+                  className="w-full rounded-xl border border-gray-line bg-black/60 py-3 pl-11 pr-11 text-sm text-ivory placeholder:text-gray-mid transition-all duration-200 focus:border-red/60 focus:outline-none focus:ring-2 focus:ring-red-light/70 [&::-webkit-search-cancel-button]:hidden"
+                />
+                {selected.q && (
+                  <button
+                    onClick={() => update({ q: '' })}
+                    aria-label="Clear search"
+                    className="absolute right-3 top-1/2 -translate-y-1/2 rounded-full p-1.5 text-gray-mid transition-colors duration-200 hover:bg-white/5 hover:text-ivory"
+                  >
+                    <X className="h-4 w-4" />
+                  </button>
+                )}
+              </div>
+
               {/* Toolbar */}
               <div className="flex flex-wrap items-center justify-between gap-4 border-b border-gray-line/50 pb-5">
                 <div className="flex items-center gap-3">

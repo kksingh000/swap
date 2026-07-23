@@ -18,6 +18,7 @@ import { fadeUp, stagger } from '../lib/motion'
 import {
   listings,
   categories,
+  departments,
   impactStats,
   featuredSwaps,
   testimonials,
@@ -157,8 +158,29 @@ export default function Landing() {
         </div>
       </Section>
 
-      {/* ————— Fresh on the rack ————— */}
+      {/* ————— Shop by department ————— */}
       <Section className="grain">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+          <motion.div variants={fadeUp} className="max-w-2xl">
+            <Eyebrow>Shop by department</Eyebrow>
+            <h2 className="font-display text-4xl text-ivory md:text-5xl">Find your side of the rack</h2>
+          </motion.div>
+          <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-3">
+            {departments.map((d) => (
+              <motion.div key={d.name} variants={fadeUp}>
+                <CategoryTile
+                  category={d}
+                  to={`/browse?department=${encodeURIComponent(d.name)}`}
+                  subtitle={d.tagline}
+                />
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </Section>
+
+      {/* ————— Fresh on the rack ————— */}
+      <Section className="grain border-t border-white/10">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <motion.div variants={fadeUp} className="flex items-end justify-between gap-6">
             <div>

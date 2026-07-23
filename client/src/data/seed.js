@@ -456,16 +456,112 @@ const rawListings = [
       'Dabu hand-block print, kurta plus palazzo. Colour still deep after gentle washes; drawstring intact.',
     listedAt: '2026-07-02',
   },
+  // ——— Kids ———
+  {
+    id: 'l-27',
+    itemId: 'SW-1583',
+    title: 'Denim Dungarees, Washed Blue',
+    brand: 'GAP',
+    category: 'Denim',
+    size: '4-5Y',
+    condition: 'Like new',
+    city: 'New Delhi',
+    ownerId: 'u-01',
+    description:
+      'Adjustable-strap dungarees my nephew outgrew in a season. Knees unmarked, brass clasps work smoothly.',
+    listedAt: '2026-07-14',
+  },
+  {
+    id: 'l-28',
+    itemId: 'SW-1591',
+    title: 'Printed Cotton Frock, Cherry',
+    brand: 'Zara',
+    category: 'Dresses',
+    size: '3-4Y',
+    condition: 'Gently used',
+    city: 'Mumbai',
+    ownerId: 'u-03',
+    description:
+      'Tiered cotton frock with a ditsy cherry print. Worn to a couple of birthday parties; colour still bright.',
+    listedAt: '2026-07-12',
+  },
+  {
+    id: 'l-29',
+    itemId: 'SW-1604',
+    title: 'Hooded Puffer Jacket, Rust',
+    brand: 'H&M',
+    category: 'Outerwear',
+    size: '6-7Y',
+    condition: 'Like new',
+    city: 'Noida',
+    ownerId: 'u-06',
+    description:
+      'Lightweight puffer with a fleece-lined hood. One mild winter of use; zip and toggles all intact.',
+    listedAt: '2026-07-15',
+  },
+  {
+    id: 'l-30',
+    itemId: 'SW-1612',
+    title: 'Light-Up Trainers, White',
+    brand: 'Adidas',
+    category: 'Footwear',
+    size: 'UK 11K',
+    condition: 'Gently used',
+    city: 'Bengaluru',
+    ownerId: 'u-03',
+    description:
+      'The LEDs still flash on every step — batteries are sealed for years. Soles clean, velcro grips firmly.',
+    listedAt: '2026-07-13',
+  },
 ]
+
+// Department (Men / Women / Kids) per listing — drives the shop sections,
+// nav, and the Browse department filter. Assigned by garment + fit, not price.
+const DEPARTMENT = {
+  'l-01': 'Men', 'l-02': 'Men', 'l-03': 'Men', 'l-04': 'Women', 'l-05': 'Women',
+  'l-06': 'Men', 'l-07': 'Women', 'l-08': 'Men', 'l-09': 'Men', 'l-10': 'Women',
+  'l-11': 'Men', 'l-12': 'Men', 'l-13': 'Women', 'l-14': 'Women', 'l-15': 'Women',
+  'l-16': 'Women', 'l-17': 'Men', 'l-18': 'Men', 'l-19': 'Women', 'l-20': 'Men',
+  'l-21': 'Men', 'l-22': 'Women', 'l-23': 'Men', 'l-24': 'Men', 'l-25': 'Men',
+  'l-26': 'Women', 'l-27': 'Kids', 'l-28': 'Kids', 'l-29': 'Kids', 'l-30': 'Kids',
+}
 
 export const listings = rawListings.map((l) => ({
   ...l,
   image: IMAGES[l.id] ?? null,
+  department: DEPARTMENT[l.id] ?? 'Women',
   swapValue: estimateValue(l),
   status: 'available',
 }))
 
 const byId = (id) => listings.find((l) => l.id === id)
+
+const countByDept = (name) => listings.filter((l) => l.department === name).length
+
+// Top-level shop entry points. Counts are live from the catalogue; the padded
+// figures nod to the wider (unseeded) inventory the way category counts do.
+export const departments = [
+  {
+    name: 'Women',
+    tagline: 'Dresses, ethnic, knitwear & the pieces you reach for.',
+    count: countByDept('Women'),
+    image: IMAGES['cat-Dresses'],
+  },
+  {
+    name: 'Men',
+    tagline: 'Denim, outerwear, sneakers & sharp everyday tailoring.',
+    count: countByDept('Men'),
+    image: IMAGES['cat-Denim'],
+  },
+  {
+    name: 'Kids',
+    tagline: 'Outgrown in a season, ready for their next little life.',
+    count: countByDept('Kids'),
+    image: IMAGES['cat-Knitwear'],
+  },
+]
+
+export const DEPARTMENTS = departments.map((d) => d.name)
 
 export const categories = [
   { name: 'Outerwear', count: 34, image: IMAGES['cat-Outerwear'] },
@@ -598,5 +694,139 @@ export const sampleTimeline = [
     date: '26 Jun 2026',
     title: 'Swap requested',
     description: 'Rohan offered Samba OG against the Levi’s trucker.',
+  },
+]
+
+// Post-swap reviews, keyed by the reviewed user's id. Surfaced on the owner
+// mini-profile (Item Detail) and appended to via the review store after a swap.
+export const reviewsSeed = {
+  'u-01': [
+    {
+      id: 'rv-01',
+      byId: 'u-02',
+      byName: 'Rohan Mehta',
+      rating: 5,
+      text: 'The trucker jacket was exactly as described — even threw in the beanie to balance the scale. Smooth exchange at the metro.',
+      date: '2026-07-13',
+    },
+    {
+      id: 'rv-02',
+      byId: 'u-06',
+      byName: 'Vikram Iyer',
+      rating: 5,
+      text: 'Punctual, honest about a tiny scuff I would never have noticed. This is how swapping should feel.',
+      date: '2026-06-29',
+    },
+    {
+      id: 'rv-03',
+      byId: 'u-03',
+      byName: 'Priya Nair',
+      rating: 4,
+      text: 'Lovely Nehru jacket, well cared for. Took a day to confirm the meeting point but worth the wait.',
+      date: '2026-06-18',
+    },
+  ],
+  'u-02': [
+    {
+      id: 'rv-04',
+      byId: 'u-01',
+      byName: 'Ananya Sharma',
+      rating: 5,
+      text: 'The Sambas had honest wear and Rohan said so upfront. No surprises, quick reply, easy trade.',
+      date: '2026-07-16',
+    },
+    {
+      id: 'rv-05',
+      byId: 'u-05',
+      byName: 'Sana Qureshi',
+      rating: 4,
+      text: 'Good communicator. The overcoat was a touch warmer than I expected but that is on me, not the listing.',
+      date: '2026-06-24',
+    },
+  ],
+  'u-03': [
+    {
+      id: 'rv-06',
+      byId: 'u-04',
+      byName: 'Arjun Malhotra',
+      rating: 5,
+      text: 'Thirty-plus swaps and it shows — Priya packs pieces immaculately and turns up on time. Gold standard.',
+      date: '2026-07-08',
+    },
+    {
+      id: 'rv-07',
+      byId: 'u-02',
+      byName: 'Rohan Mehta',
+      rating: 5,
+      text: 'The biker jacket looked better in person. Zero haggling drama, the scale did the talking.',
+      date: '2026-06-30',
+    },
+  ],
+  'u-04': [
+    {
+      id: 'rv-08',
+      byId: 'u-03',
+      byName: 'Priya Nair',
+      rating: 4,
+      text: 'The Ralph Lauren cable knit was spotless. Quick to agree, just a little slow to pick a meeting spot.',
+      date: '2026-07-11',
+    },
+  ],
+  'u-05': [
+    {
+      id: 'rv-09',
+      byId: 'u-01',
+      byName: 'Ananya Sharma',
+      rating: 5,
+      text: 'The Anarkali set was freshly laundered and pressed. Sana clearly loves her clothes — and it shows.',
+      date: '2026-07-02',
+    },
+  ],
+  'u-06': [
+    {
+      id: 'rv-10',
+      byId: 'u-01',
+      byName: 'Ananya Sharma',
+      rating: 5,
+      text: 'Merino sweater exactly as pictured. Vikram is a reliable, no-nonsense swapper. Would trade again.',
+      date: '2026-06-28',
+    },
+  ],
+}
+
+// Starter notifications for the demo persona (Ananya). The store merges these
+// with anything the current session generates (requests, accepts, reviews).
+export const notificationsSeed = [
+  {
+    id: 'nt-01',
+    type: 'request',
+    text: 'Rohan Mehta wants to swap his Samba OG for your Levi’s trucker.',
+    to: '/swap/sr-demo-01',
+    createdAt: '2026-07-16T10:41:00.000Z',
+    read: false,
+  },
+  {
+    id: 'nt-02',
+    type: 'message',
+    text: 'New message from Rohan: “Deal. Sending the updated offer now.”',
+    to: '/chat?request=sr-demo-01',
+    createdAt: '2026-07-16T10:47:00.000Z',
+    read: false,
+  },
+  {
+    id: 'nt-03',
+    type: 'review',
+    text: 'Vikram Iyer left you a 5★ review after your swap.',
+    to: '/dashboard',
+    createdAt: '2026-06-29T14:12:00.000Z',
+    read: true,
+  },
+  {
+    id: 'nt-04',
+    type: 'status',
+    text: 'Your swap SW-1536 ⇄ SW-1348 was marked completed.',
+    to: '/swap/sr-demo-03',
+    createdAt: '2026-06-28T18:30:00.000Z',
+    read: true,
   },
 ]
