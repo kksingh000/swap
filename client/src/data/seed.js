@@ -1830,6 +1830,175 @@ const rawListings = [
       'A well-loved crimson band tee with a soft-cracked front print. Slim vintage cut, honest fading — the real thing, not a reproduction.',
     listedAt: '2026-07-19',
   },
+  // ——— Men, reference set: denim, knits, long-sleeves, colour tees ———
+  {
+    id: 'l-122',
+    itemId: 'SW-2332',
+    title: 'Flared Jeans, Light Wash',
+    brand: 'Vintage',
+    category: 'Denim',
+    size: '32',
+    condition: 'Gently used',
+    city: 'Mumbai',
+    ownerId: 'u-02',
+    description:
+      'Light-wash flared jeans with a high waist and a long, clean leg. Gently worn, no fraying at the hem — that seventies silhouette back in rotation.',
+    listedAt: '2026-07-18',
+  },
+  {
+    id: 'l-123',
+    itemId: 'SW-2340',
+    title: 'Denim Western Shirt, Mid Wash',
+    brand: 'Wrangler',
+    category: 'Shirts',
+    size: 'L',
+    condition: 'Gently used',
+    city: 'Pune',
+    ownerId: 'u-09',
+    description:
+      'Mid-wash denim western shirt with pearl-snap pockets and a pointed yoke. Soft and broken in, snaps all working — wear it open or buttoned.',
+    listedAt: '2026-07-18',
+  },
+  {
+    id: 'l-124',
+    itemId: 'SW-2348',
+    title: 'Fine-Gauge Knit, Heather Grey',
+    brand: 'COS',
+    category: 'Knitwear',
+    size: 'M',
+    condition: 'Like new',
+    city: 'Kolkata',
+    ownerId: 'u-07',
+    description:
+      'A fine-gauge heather-grey crew in a soft merino blend. No pilling, holds its shape — the understated knit you throw over anything.',
+    listedAt: '2026-07-18',
+  },
+  {
+    id: 'l-125',
+    itemId: 'SW-2355',
+    title: 'Waffle Long-Sleeve, Espresso',
+    brand: 'Uniqlo',
+    category: 'Tees',
+    size: 'M',
+    condition: 'Gently used',
+    city: 'New Delhi',
+    ownerId: 'u-04',
+    description:
+      'Espresso waffle-knit long-sleeve with a crew neck. Textured and warm without bulk, cuffs still tight — an easy autumn layer.',
+    listedAt: '2026-07-17',
+  },
+  {
+    id: 'l-126',
+    itemId: 'SW-2363',
+    title: 'Slub Long-Sleeve Tee, Tan',
+    brand: 'Uniqlo',
+    category: 'Tees',
+    size: 'M',
+    condition: 'Gently used',
+    city: 'Bengaluru',
+    ownerId: 'u-06',
+    description:
+      'Tan slub-cotton long-sleeve tee, lightweight and lived-in. Relaxed fit, soft hand, no thinning at the elbows.',
+    listedAt: '2026-07-17',
+  },
+  {
+    id: 'l-127',
+    itemId: 'SW-2371',
+    title: 'Layered Crew Tee, Brick Red',
+    brand: 'H&M',
+    category: 'Tees',
+    size: 'M',
+    condition: 'Gently used',
+    city: 'Hyderabad',
+    ownerId: 'u-06',
+    description:
+      'A brick-red crew tee in heavyweight cotton. Rich muted colour, holds shape, layers cleanly over a long-sleeve.',
+    listedAt: '2026-07-18',
+  },
+  {
+    id: 'l-128',
+    itemId: 'SW-2378',
+    title: 'Graphic Tee, Sunflower Yellow',
+    brand: 'Vintage',
+    category: 'Tees',
+    size: 'M',
+    condition: 'Gently used',
+    city: 'Goa',
+    ownerId: 'u-09',
+    description:
+      'Sunflower-yellow tee with a faded front graphic. Relaxed fit, print still bright — a cheerful pop for the warmer months.',
+    listedAt: '2026-07-17',
+  },
+  {
+    id: 'l-129',
+    itemId: 'SW-2386',
+    title: 'Boxy Tee, Oatmeal',
+    brand: 'COS',
+    category: 'Tees',
+    size: 'M',
+    condition: 'Like new',
+    city: 'Chennai',
+    ownerId: 'u-09',
+    description:
+      'An oatmeal boxy tee in thick combed cotton. Clean drop shoulder, no marks — the elevated basic that quietly does the work.',
+    listedAt: '2026-07-18',
+  },
+  {
+    id: 'l-130',
+    itemId: 'SW-2394',
+    title: 'Fitted Tee, Ink Navy',
+    brand: 'Uniqlo',
+    category: 'Tees',
+    size: 'M',
+    condition: 'Like new',
+    city: 'Mumbai',
+    ownerId: 'u-02',
+    description:
+      'Ink-navy fitted crew in heavyweight cotton. Deep even colour, no bobbling — a sharper alternative to the everyday black tee.',
+    listedAt: '2026-07-17',
+  },
+  {
+    id: 'l-131',
+    itemId: 'SW-2401',
+    title: 'Logo Tee, Cream',
+    brand: 'Berluti',
+    category: 'Tees',
+    size: 'M',
+    condition: 'Like new',
+    city: 'New Delhi',
+    ownerId: 'u-04',
+    description:
+      'Cream cotton tee with a small tonal logo print. Slim cut, barely worn — that quiet-luxury hand you only notice up close.',
+    listedAt: '2026-07-18',
+  },
+  {
+    id: 'l-132',
+    itemId: 'SW-2409',
+    title: 'All-Over Print Tee, White',
+    brand: 'Etro',
+    category: 'Tees',
+    size: 'L',
+    condition: 'Like new',
+    city: 'Kolkata',
+    ownerId: 'u-07',
+    description:
+      'White cotton tee with an all-over paisley-style print at the front. Worn a couple of times, print crisp — an easy statement piece.',
+    listedAt: '2026-07-17',
+  },
+  {
+    id: 'l-133',
+    itemId: 'SW-2417',
+    title: 'Muscle Tank, Black',
+    brand: 'Vintage',
+    category: 'Tees',
+    size: 'M',
+    condition: 'Well loved',
+    city: 'Noida',
+    ownerId: 'u-06',
+    description:
+      'A black cotton muscle tank broken in to that perfect soft drape. Ribbed armholes intact — the warm-weather and gym staple.',
+    listedAt: '2026-07-17',
+  },
 ]
 
 // Department (Men / Women / Kids) per listing — drives the shop sections,
@@ -1860,6 +2029,9 @@ const DEPARTMENT = {
   'l-108': 'Men', 'l-109': 'Men', 'l-110': 'Men', 'l-111': 'Men', 'l-112': 'Men',
   'l-113': 'Men', 'l-114': 'Men', 'l-115': 'Men', 'l-116': 'Men', 'l-117': 'Men',
   'l-118': 'Men', 'l-119': 'Men', 'l-120': 'Men', 'l-121': 'Men',
+  'l-122': 'Men', 'l-123': 'Men', 'l-124': 'Men', 'l-125': 'Men', 'l-126': 'Men',
+  'l-127': 'Men', 'l-128': 'Men', 'l-129': 'Men', 'l-130': 'Men', 'l-131': 'Men',
+  'l-132': 'Men', 'l-133': 'Men',
 }
 
 // Category photo pools drawn from the originally-shot listings. Pieces added
@@ -1938,6 +2110,18 @@ const USER_PHOTOS = {
   'l-119': '/listings/fdbb240af5eb6bd249c67123a0064d01.jpg', // black leather biker
   'l-120': '/listings/f9815a2fe8b1582c51f0e28f0f03e852.jpg', // washed lilac graphic tee
   'l-121': '/listings/f5ee03d7dc9e41282d40863953ad5b4d.jpg', // crimson concert tee
+  'l-122': '/listings/068ca0ec0f4cd006eb642ef4ba225075.jpg', // light-wash flared jeans
+  'l-123': '/listings/b85e9a55e861f13da1c26316fe36cdbf.jpg', // denim western shirt
+  'l-124': '/listings/71a589438ac10685ff5fd9d14a74eb24.jpg', // heather grey knit
+  'l-125': '/listings/4b18c4fc5e6170e8d44bfd953d65581c.jpg', // espresso waffle long-sleeve
+  'l-126': '/listings/d14aa7e41eca2c8871d66d07d15e11e1.jpg', // tan slub long-sleeve
+  'l-127': '/listings/2def9f3638006b4b99655f8da3b1f67f.jpg', // brick red layered tee
+  'l-128': '/listings/2e22f6abc02b4711b82a23b216dc711b.jpg', // sunflower yellow graphic tee
+  'l-129': '/listings/37f6d4ceb4a0dd4a530aa024f081cc35.jpg', // oatmeal boxy tee
+  'l-130': '/listings/882de4a2edac7ee0565c593c8b30cbc9.jpg', // ink navy fitted tee
+  'l-131': '/listings/97010d4732b2c944972348079b12a507.jpg', // cream Berluti logo tee
+  'l-132': '/listings/f251bd1ef302c582867d762748affed1.jpg', // white Etro print tee
+  'l-133': '/listings/24a41a27da906a2a1b04168818c66001.jpg', // black muscle tank
 }
 
 export const listings = rawListings.map((l) => ({
