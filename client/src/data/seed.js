@@ -1436,6 +1436,203 @@ const rawListings = [
       'Sturdy khaki cotton dungarees with adjustable straps and a front pocket. Knees still strong, clasps working, a proper hand-me-down hero.',
     listedAt: '2026-07-15',
   },
+  // ——— Men, photo-accurate graphic & vintage tees ———
+  {
+    id: 'l-94',
+    itemId: 'SW-2120',
+    title: 'Anagram Cotton Tee, Black',
+    brand: 'Loewe',
+    category: 'Tees',
+    size: 'M',
+    condition: 'Like new',
+    city: 'Bengaluru',
+    ownerId: 'u-04',
+    description:
+      'Black cotton tee with the tonal Anagram at the chest — quiet designer branding done right. Worn a few times, no cracking on the print, crew holds its shape.',
+    listedAt: '2026-07-23',
+  },
+  {
+    id: 'l-95',
+    itemId: 'SW-2127',
+    title: 'Studios Logo Tee, Faded Brown',
+    brand: 'Acne Studios',
+    category: 'Tees',
+    size: 'M',
+    condition: 'Gently used',
+    city: 'Mumbai',
+    ownerId: 'u-02',
+    description:
+      'Faded-brown logo tee softened to that perfect vintage hand. Slim boxy cut, minimal print wear — the easy everyday hero of a wardrobe.',
+    listedAt: '2026-07-23',
+  },
+  {
+    id: 'l-96',
+    itemId: 'SW-2135',
+    title: 'Collegiate Varsity Tee, Heather Grey',
+    brand: 'Abercrombie & Fitch',
+    category: 'Tees',
+    size: 'L',
+    condition: 'Gently used',
+    city: 'Noida',
+    ownerId: 'u-06',
+    description:
+      'Heather-grey collegiate tee with a distressed varsity print. Genuinely broken in, no holes — the exact worn-in softness you cannot buy new.',
+    listedAt: '2026-07-22',
+  },
+  {
+    id: 'l-97',
+    itemId: 'SW-2142',
+    title: 'Vintage Band Tee, Washed Charcoal',
+    brand: 'Vintage',
+    category: 'Tees',
+    size: 'L',
+    condition: 'Well loved',
+    city: 'Kolkata',
+    ownerId: 'u-07',
+    description:
+      'A properly loved charcoal band tee, sun-faded with a cracked front graphic. Paper-soft cotton, honest wear at the collar — the real deal.',
+    listedAt: '2026-07-22',
+  },
+  {
+    id: 'l-98',
+    itemId: 'SW-2150',
+    title: 'Souvenir Raglan Tee, Kelly Green',
+    brand: 'Vintage',
+    category: 'Tees',
+    size: 'M',
+    condition: 'Well loved',
+    city: 'Bengaluru',
+    ownerId: 'u-06',
+    description:
+      'Vintage green-and-cream raglan with a souvenir print. Three-quarter sleeves, soft-cracked graphic, that unmistakable thrift-store-find feel.',
+    listedAt: '2026-07-21',
+  },
+  {
+    id: 'l-99',
+    itemId: 'SW-2158',
+    title: 'Ringer Tee, Ecru & Black',
+    brand: 'H&M',
+    category: 'Tees',
+    size: 'M',
+    condition: 'Like new',
+    city: 'Gurugram',
+    ownerId: 'u-04',
+    description:
+      'Classic ecru ringer with black neck and cuff trim. Heavyweight cotton that holds its shape — the tee that quietly makes an outfit.',
+    listedAt: '2026-07-21',
+  },
+  {
+    id: 'l-100',
+    itemId: 'SW-2165',
+    title: 'Retro Logo Tee, Mustard',
+    brand: 'Diesel',
+    category: 'Tees',
+    size: 'M',
+    condition: 'Gently used',
+    city: 'Goa',
+    ownerId: 'u-09',
+    description:
+      'Warm mustard tee with a retro circle logo. Gently worn, colour still rich, no bobbling — reads instantly nineties in the best way.',
+    listedAt: '2026-07-23',
+  },
+  {
+    id: 'l-101',
+    itemId: 'SW-2173',
+    title: 'Varsity Number Tee, Black',
+    brand: 'Emporio Armani',
+    category: 'Tees',
+    size: 'L',
+    condition: 'Like new',
+    city: 'Mumbai',
+    ownerId: 'u-02',
+    description:
+      'Black tee with a gold varsity numeral across the chest. Worn a handful of times, print intact — a sporty-luxe staple that dresses up or down.',
+    listedAt: '2026-07-22',
+  },
+  {
+    id: 'l-102',
+    itemId: 'SW-2180',
+    title: 'Cotton Henley, Powder Blue',
+    brand: 'Uniqlo',
+    category: 'Shirts',
+    size: 'M',
+    condition: 'Gently used',
+    city: 'Chennai',
+    ownerId: 'u-09',
+    description:
+      'Soft powder-blue henley with a three-button placket. Slim through the body, no thinning — the go-to layer under a jacket or on its own.',
+    listedAt: '2026-07-21',
+  },
+  {
+    id: 'l-103',
+    itemId: 'SW-2188',
+    title: 'Cotton-Piqué Polo, White',
+    brand: 'Ralph Lauren',
+    category: 'Shirts',
+    size: 'M',
+    condition: 'Like new',
+    city: 'Kolkata',
+    ownerId: 'u-07',
+    description:
+      'Crisp white cotton-piqué polo — the summer workhorse. Collar stands sharp, no pilling, ready for anything from errands to dinner.',
+    listedAt: '2026-07-23',
+  },
+  {
+    id: 'l-104',
+    itemId: 'SW-2195',
+    title: 'Compression Training Tee, White',
+    brand: 'Gymshark',
+    category: 'Tees',
+    size: 'M',
+    condition: 'Like new',
+    city: 'Hyderabad',
+    ownerId: 'u-06',
+    description:
+      'A fitted white technical training tee — sweat-wicking and quick-dry. Barely worn, no odour retention, seams all intact. Gym-ready.',
+    listedAt: '2026-07-22',
+  },
+  {
+    id: 'l-105',
+    itemId: 'SW-2203',
+    title: 'Souvenir Tee, Navy',
+    brand: 'Vintage',
+    category: 'Tees',
+    size: 'L',
+    condition: 'Gently used',
+    city: 'Pune',
+    ownerId: 'u-02',
+    description:
+      'Navy souvenir tee with a faded arc print. Vintage-soft cotton, boxy fit, honest fading that only makes it better with time.',
+    listedAt: '2026-07-21',
+  },
+  {
+    id: 'l-106',
+    itemId: 'SW-2210',
+    title: 'Western Ringer Tee, White',
+    brand: 'Vintage',
+    category: 'Tees',
+    size: 'M',
+    condition: 'Gently used',
+    city: 'New Delhi',
+    ownerId: 'u-04',
+    description:
+      'White-and-navy ringer with a retro western print. Slim ringer cut, soft hand, the graphic cracked just enough to look exactly right.',
+    listedAt: '2026-07-23',
+  },
+  {
+    id: 'l-107',
+    itemId: 'SW-2218',
+    title: 'Chuck Taylor All-Star Hi, Black',
+    brand: 'Converse',
+    category: 'Footwear',
+    size: 'UK 9',
+    condition: 'Gently used',
+    city: 'Mumbai',
+    ownerId: 'u-07',
+    description:
+      'The black canvas Chuck Taylor high-top, cleaned and re-laced. Toe cap crisp, soles at 90%, that timeless silhouette. Comes with the box.',
+    listedAt: '2026-07-22',
+  },
 ]
 
 // Department (Men / Women / Kids) per listing — drives the shop sections,
@@ -1460,6 +1657,9 @@ const DEPARTMENT = {
   'l-77': 'Women', 'l-78': 'Women', 'l-79': 'Women', 'l-80': 'Women', 'l-81': 'Women',
   'l-82': 'Women', 'l-83': 'Women', 'l-84': 'Women', 'l-85': 'Women', 'l-86': 'Women', 'l-87': 'Women',
   'l-88': 'Kids', 'l-89': 'Kids', 'l-90': 'Kids', 'l-91': 'Kids', 'l-92': 'Kids', 'l-93': 'Kids',
+  'l-94': 'Men', 'l-95': 'Men', 'l-96': 'Men', 'l-97': 'Men', 'l-98': 'Men', 'l-99': 'Men',
+  'l-100': 'Men', 'l-101': 'Men', 'l-102': 'Men', 'l-103': 'Men', 'l-104': 'Men',
+  'l-105': 'Men', 'l-106': 'Men', 'l-107': 'Men',
 }
 
 // Category photo pools drawn from the originally-shot listings. Pieces added
@@ -1510,6 +1710,20 @@ const USER_PHOTOS = {
   'l-73': '/listings/4c30d367a5c3cd0d90a63b9fc7872bdf.jpg', // retro sport jersey
   'l-74': '/listings/88c08135098775d83cf5a9bb95ec8134.jpg', // chambray shirt
   'l-76': '/listings/d8fe6fa8d2c9ad69dd40b5b8473b73fd.jpg', // polo
+  'l-94': '/listings/4d95c9fec61bd12bd54bd96308978aa2.jpg', // Loewe anagram black tee
+  'l-95': '/listings/4e5d2b7e1842a526c04665d2812af481.jpg', // Acne brown logo tee
+  'l-96': '/listings/5864c1a45a82d33e94598aa6709a5f4c.jpg', // Abercrombie grey collegiate tee
+  'l-97': '/listings/66a286d60a200870dd883c8e94ea3e0e.jpg', // vintage charcoal band tee
+  'l-98': '/listings/977c259a74d1b9b3b345af5d2e1760d1.jpg', // green souvenir raglan tee
+  'l-99': '/listings/a16809097b6389b188a0dd4bce0b23d2.jpg', // ecru & black ringer tee
+  'l-100': '/listings/a7a87be1da7db6236fd7b1febacb130e.jpg', // mustard Diesel tee
+  'l-101': '/listings/f5b754204e1a463fd2ed9ca739f7a65c.jpg', // Emporio Armani number tee
+  'l-102': '/listings/481e4a064d2b6ee90298dbf75049f6cd.jpg', // powder-blue henley
+  'l-103': '/listings/e1a31d22dde3e98e3434ab70d702d9cb.jpg', // white piqué polo
+  'l-104': '/listings/e4758c771d39f9bf430e99947644e5a3.jpg', // white compression training tee
+  'l-105': '/listings/e6c89a95ace1fdcc9563f23e9c125611.jpg', // navy souvenir tee
+  'l-106': '/listings/ef9103acf27b25bbdf57a88b324f7347.jpg', // white western ringer tee
+  'l-107': '/listings/a5478d7d4b6bea73a110acbdd9f116d3.jpg', // black Chuck Taylor hi
 }
 
 export const listings = rawListings.map((l) => ({
