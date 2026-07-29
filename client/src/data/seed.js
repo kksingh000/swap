@@ -1633,6 +1633,203 @@ const rawListings = [
       'The black canvas Chuck Taylor high-top, cleaned and re-laced. Toe cap crisp, soles at 90%, that timeless silhouette. Comes with the box.',
     listedAt: '2026-07-22',
   },
+  // ——— Men, reference set: knits, henleys, sneakers, outerwear ———
+  {
+    id: 'l-108',
+    itemId: 'SW-2226',
+    title: 'Graphic Crew Sweatshirt, Black',
+    brand: 'Vintage',
+    category: 'Knitwear',
+    size: 'L',
+    condition: 'Gently used',
+    city: 'Kolkata',
+    ownerId: 'u-07',
+    description:
+      'Black cotton-loop sweatshirt with a small graphic at the chest. Soft brushed inside, ribbing intact — that perfectly worn-in weight for cooler evenings.',
+    listedAt: '2026-07-20',
+  },
+  {
+    id: 'l-109',
+    itemId: 'SW-2234',
+    title: 'Slub Henley, Olive',
+    brand: 'Uniqlo',
+    category: 'Shirts',
+    size: 'M',
+    condition: 'Gently used',
+    city: 'Pune',
+    ownerId: 'u-09',
+    description:
+      'Olive slub-cotton henley with a three-button placket. Lightweight and breathable, slim fit, no thinning — a quiet everyday favourite.',
+    listedAt: '2026-07-20',
+  },
+  {
+    id: 'l-110',
+    itemId: 'SW-2241',
+    title: 'Ringer Tee, Faded Red',
+    brand: 'H&M',
+    category: 'Tees',
+    size: 'M',
+    condition: 'Well loved',
+    city: 'Bengaluru',
+    ownerId: 'u-06',
+    description:
+      'A well-loved red ringer tee, sun-softened with contrast trim. Paper-soft cotton, honest fade at the collar — the real vintage hand.',
+    listedAt: '2026-07-19',
+  },
+  {
+    id: 'l-111',
+    itemId: 'SW-2249',
+    title: 'Swoosh Cotton Tee, Black',
+    brand: 'Nike',
+    category: 'Tees',
+    size: 'M',
+    condition: 'Like new',
+    city: 'Mumbai',
+    ownerId: 'u-02',
+    description:
+      'Classic black cotton tee with a small embroidered swoosh. Barely worn, holds its shape — the no-nonsense staple you reach for daily.',
+    listedAt: '2026-07-20',
+  },
+  {
+    id: 'l-112',
+    itemId: 'SW-2256',
+    title: 'Vintage Graphic Tee, White',
+    brand: 'Vintage',
+    category: 'Tees',
+    size: 'L',
+    condition: 'Well loved',
+    city: 'New Delhi',
+    ownerId: 'u-04',
+    description:
+      'White vintage tee with a faded front print, thinned to that perfect broken-in feel. Boxy cut, honest wear — impossible to buy new.',
+    listedAt: '2026-07-19',
+  },
+  {
+    id: 'l-113',
+    itemId: 'SW-2264',
+    title: 'Fitted Tee, Oxblood',
+    brand: 'COS',
+    category: 'Tees',
+    size: 'M',
+    condition: 'Like new',
+    city: 'Chennai',
+    ownerId: 'u-09',
+    description:
+      'A deep oxblood fitted crew in heavyweight cotton. Rich colour, no bobbling — the kind of tee that quietly reads expensive.',
+    listedAt: '2026-07-20',
+  },
+  {
+    id: 'l-114',
+    itemId: 'SW-2271',
+    title: 'Chunky High-Top Sneakers, White',
+    brand: 'Converse',
+    category: 'Footwear',
+    size: 'UK 10',
+    condition: 'Like new',
+    city: 'Hyderabad',
+    ownerId: 'u-06',
+    description:
+      'Chunky white canvas high-tops with a raised platform sole. Worn a couple of times indoors — canvas clean, soles barely marked. Box included.',
+    listedAt: '2026-07-19',
+  },
+  {
+    id: 'l-115',
+    itemId: 'SW-2279',
+    title: 'Canvas Low-Top, White',
+    brand: 'Converse',
+    category: 'Footwear',
+    size: 'UK 9',
+    condition: 'Gently used',
+    city: 'Kolkata',
+    ownerId: 'u-07',
+    description:
+      'Everyday white canvas low-tops, cleaned and re-laced. Light creasing at the toe, plenty of wear left — that go-with-everything silhouette.',
+    listedAt: '2026-07-19',
+  },
+  {
+    id: 'l-116',
+    itemId: 'SW-2286',
+    title: 'Waffle-Knit Crew, Slate Grey',
+    brand: 'COS',
+    category: 'Knitwear',
+    size: 'M',
+    condition: 'Like new',
+    city: 'Gurugram',
+    ownerId: 'u-04',
+    description:
+      'A slate-grey waffle-knit crew in fine cotton. Textured but lightweight, no pilling, dry-cleaned — layers over a collar beautifully.',
+    listedAt: '2026-07-20',
+  },
+  {
+    id: 'l-117',
+    itemId: 'SW-2294',
+    title: 'Everyday Cotton Tee, Heather Grey',
+    brand: 'H&M',
+    category: 'Tees',
+    size: 'M',
+    condition: 'Gently used',
+    city: 'Noida',
+    ownerId: 'u-06',
+    description:
+      'Soft heather-grey cotton tee — the everyday base layer. Washed a few times and holding shape, no marks or thinning.',
+    listedAt: '2026-07-19',
+  },
+  {
+    id: 'l-118',
+    itemId: 'SW-2301',
+    title: 'Cotton Henley, Black',
+    brand: 'COS',
+    category: 'Shirts',
+    size: 'M',
+    condition: 'Like new',
+    city: 'Mumbai',
+    ownerId: 'u-02',
+    description:
+      'A black slub henley with a three-button placket. Slim through the body, breathable cotton — sharp on its own or under a jacket.',
+    listedAt: '2026-07-20',
+  },
+  {
+    id: 'l-119',
+    itemId: 'SW-2309',
+    title: 'Leather Biker Jacket, Black',
+    brand: 'AllSaints',
+    category: 'Outerwear',
+    size: 'L',
+    condition: 'Like new',
+    city: 'New Delhi',
+    ownerId: 'u-04',
+    description:
+      'A black lambskin biker with an asymmetric zip and quilted shoulders. Worn twice, leather supple, all hardware working — instant edge over a tee.',
+    listedAt: '2026-07-19',
+  },
+  {
+    id: 'l-120',
+    itemId: 'SW-2316',
+    title: 'Graphic Tee, Washed Lilac',
+    brand: 'Vintage',
+    category: 'Tees',
+    size: 'M',
+    condition: 'Gently used',
+    city: 'Goa',
+    ownerId: 'u-09',
+    description:
+      'A washed lilac tee with a bold front graphic. Relaxed fit, soft hand, print still vivid — an easy pop of colour in a rotation.',
+    listedAt: '2026-07-20',
+  },
+  {
+    id: 'l-121',
+    itemId: 'SW-2324',
+    title: 'Concert Graphic Tee, Crimson',
+    brand: 'Vintage',
+    category: 'Tees',
+    size: 'L',
+    condition: 'Well loved',
+    city: 'Kolkata',
+    ownerId: 'u-07',
+    description:
+      'A well-loved crimson band tee with a soft-cracked front print. Slim vintage cut, honest fading — the real thing, not a reproduction.',
+    listedAt: '2026-07-19',
+  },
 ]
 
 // Department (Men / Women / Kids) per listing — drives the shop sections,
@@ -1660,6 +1857,9 @@ const DEPARTMENT = {
   'l-94': 'Men', 'l-95': 'Men', 'l-96': 'Men', 'l-97': 'Men', 'l-98': 'Men', 'l-99': 'Men',
   'l-100': 'Men', 'l-101': 'Men', 'l-102': 'Men', 'l-103': 'Men', 'l-104': 'Men',
   'l-105': 'Men', 'l-106': 'Men', 'l-107': 'Men',
+  'l-108': 'Men', 'l-109': 'Men', 'l-110': 'Men', 'l-111': 'Men', 'l-112': 'Men',
+  'l-113': 'Men', 'l-114': 'Men', 'l-115': 'Men', 'l-116': 'Men', 'l-117': 'Men',
+  'l-118': 'Men', 'l-119': 'Men', 'l-120': 'Men', 'l-121': 'Men',
 }
 
 // Category photo pools drawn from the originally-shot listings. Pieces added
@@ -1724,6 +1924,20 @@ const USER_PHOTOS = {
   'l-105': '/listings/e6c89a95ace1fdcc9563f23e9c125611.jpg', // navy souvenir tee
   'l-106': '/listings/ef9103acf27b25bbdf57a88b324f7347.jpg', // white western ringer tee
   'l-107': '/listings/a5478d7d4b6bea73a110acbdd9f116d3.jpg', // black Chuck Taylor hi
+  'l-108': '/listings/14614493ce5bd48145f0dbedc8f74a5b.jpg', // black graphic sweatshirt
+  'l-109': '/listings/194588ea00343c39d96c6f19322894b3.jpg', // olive henley
+  'l-110': '/listings/35bb44357e913f0b8b456133dc8bea9c.jpg', // faded red ringer tee
+  'l-111': '/listings/785e7cb670e505e40c268c6215ef3ca2.jpg', // black Nike swoosh tee
+  'l-112': '/listings/8152d7a0602696f37a27db56df48c790.jpg', // white vintage graphic tee
+  'l-113': '/listings/8beeb45b22054c7d46aa2a2d7eafd367.jpg', // oxblood fitted tee
+  'l-114': '/listings/c07ec1382b1ba27ed77c4835374a8bcf.jpg', // white chunky high-top
+  'l-115': '/listings/c2010006345e8f748eb46f1a68e29974.jpg', // white canvas low-top
+  'l-116': '/listings/c7f947b81eb9b9231eaa611266d53136.jpg', // slate waffle knit
+  'l-117': '/listings/f3be447a3d65abbfaa15168e366862b4.jpg', // heather grey tee
+  'l-118': '/listings/f3faffc6f4a7a1ecc2f6a87e32ece778.jpg', // black henley
+  'l-119': '/listings/fdbb240af5eb6bd249c67123a0064d01.jpg', // black leather biker
+  'l-120': '/listings/f9815a2fe8b1582c51f0e28f0f03e852.jpg', // washed lilac graphic tee
+  'l-121': '/listings/f5ee03d7dc9e41282d40863953ad5b4d.jpg', // crimson concert tee
 }
 
 export const listings = rawListings.map((l) => ({
