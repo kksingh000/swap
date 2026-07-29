@@ -1488,9 +1488,33 @@ function fallbackPhoto(category) {
   return IMAGES[pool[n % pool.length]] ?? null
 }
 
+// Real reference photos dropped into /public/listings, hand-matched to the
+// men's pieces they best represent (served from the public folder at /listings).
+// These take top priority over the category stand-ins.
+const USER_PHOTOS = {
+  'l-31': '/listings/996d73b7193645be21acbce6675b9e1f.jpg', // navy merino crew
+  'l-32': '/listings/a9e0b5e272c2f448a614912794873d83.jpg', // cream Chuck 70 high-top
+  'l-33': '/listings/1b54c2554339d934bfe3bc1f0e3fa3b0.jpg', // vintage raglan band tee
+  'l-34': '/listings/96572c526406456a4cc151deeb857f4e.jpg', // tobacco suede jacket
+  'l-35': '/listings/8d9d8c8c8cc8774c25e4d7b12d221a7d.jpg', // cream henley
+  'l-42': '/listings/ac8936ac035879755635e542abcc60c1.jpg', // white button shirt
+  'l-43': '/listings/82fd79e4cd4a78f3f2b7e11b70843b2c.jpg', // outer / leather jacket
+  'l-44': '/listings/c860ed66b3022ccc09852d12894574ba.jpg', // cream chunky sneakers
+  'l-45': '/listings/548bddcbdf5a39e4d9fdd86d8224b1af.jpg', // white long-sleeve
+  'l-48': '/listings/bb700420edc13149586687fc1f455af6.jpg', // black graphic tee
+  'l-50': '/listings/ec6f140c5400ef5af744df8d0d804aa8.jpg', // green top
+  'l-66': '/listings/2e1f8a96433adcd8ff626f1fdc1ba9ac.jpg', // light open shirt
+  'l-67': '/listings/a90de90e6b4e58b4a862c33ff9911f68.jpg', // denim / cord jacket
+  'l-69': '/listings/11c46d3108bca82dd4eaf63d25d46a7a.jpg', // black tee
+  'l-70': '/listings/38574a57a52b9da0e0eaae6415b5f177.jpg', // oatmeal knit
+  'l-73': '/listings/4c30d367a5c3cd0d90a63b9fc7872bdf.jpg', // retro sport jersey
+  'l-74': '/listings/88c08135098775d83cf5a9bb95ec8134.jpg', // chambray shirt
+  'l-76': '/listings/d8fe6fa8d2c9ad69dd40b5b8473b73fd.jpg', // polo
+}
+
 export const listings = rawListings.map((l) => ({
   ...l,
-  image: IMAGES[l.id] ?? fallbackPhoto(l.category),
+  image: USER_PHOTOS[l.id] ?? IMAGES[l.id] ?? fallbackPhoto(l.category),
   department: DEPARTMENT[l.id] ?? 'Women',
   swapValue: estimateValue(l),
   status: 'available',
